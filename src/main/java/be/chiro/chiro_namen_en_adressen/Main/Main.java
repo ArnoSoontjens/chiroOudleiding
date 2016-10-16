@@ -8,15 +8,15 @@ import javax.swing.JFrame;
  *
  * @author Arno
  */
-public class Main{
+public class Main extends JFrame {
     
     public static void main(String[] args) {
-        MainView mainView = new MainView();
-        JFrame frame = new JFrame();
-        
-        frame.setContentPane(mainView);
-        frame.setVisible(true);
+        JFrame frame = new Main();
+
+        frame.setContentPane(new MainView());
+        frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
     
 }

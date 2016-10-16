@@ -1,9 +1,7 @@
 
 package be.chiro.chiro_namen_en_adressen.views;
 
-import javafx.scene.control.DatePicker;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,26 +10,18 @@ import javax.swing.JTextField;
  *
  * @author Arno
  */
-public class MainView extends JFrame {
+public class MainView extends JPanel {
    
-    private JTextField txtFirstName, txtLastName, txtEmail,txtDob;
+    private JTextField txtFirstName, txtLastName, txtEmail, txtDob;
     private JTextField txtCity,txtZipCode, txtStreet, txtNumber, txtBus;
     private JLabel lblFirstName, lblLastname, lblEmail,lblDob;
     private JLabel lblCity, lblZipCode, lblStreet, lblNumber,lblBus;
     private JButton btnNewPerson;
     private JPanel panel;
-    private DatePicker dateOfBirth;
     
     public MainView() {
         initializeComponents();
         setUpPanel();
-        setUpFrame();
-    }
-    
-    private void setUpFrame() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setContentPane(panel);
-        setVisible(true);
     }
     
     private void setUpPanel() {
@@ -42,18 +32,31 @@ public class MainView extends JFrame {
         panel.add(lblEmail);
         panel.add(txtEmail);
         panel.add(lblDob);
-        panel.add(dateOfBirth);
+        panel.add(txtDob);
+        panel.add(lblCity);
+        panel.add(txtCity);
+        panel.add(lblZipCode);
+        panel.add(txtZipCode);
+        panel.add(lblStreet);
+        panel.add(txtStreet);
+        panel.add(lblNumber);
+        panel.add(txtNumber);
+        panel.add(lblBus);
+        panel.add(txtBus);
+        
+        this.add(panel);
     }
     
     private void initializeComponents() {
-        txtFirstName = new JTextField();
-        txtLastName = new JTextField();
-        txtEmail = new JTextField();
-        txtCity = new JTextField();
-        txtZipCode = new JTextField();
-        txtStreet = new JTextField();
-        txtNumber = new JTextField();
-        txtBus = new JTextField();
+        txtFirstName = new JTextField(20);
+        txtLastName = new JTextField(20);
+        txtEmail = new JTextField(30);
+        txtCity = new JTextField(15);
+        txtZipCode = new JTextField(5);
+        txtStreet = new JTextField(20);
+        txtNumber = new JTextField(5);
+        txtBus = new JTextField(5);
+        txtDob = new JTextField(10);
         
         lblFirstName = new JLabel("Voornaam:");
         lblLastname = new JLabel("Naam:");
@@ -63,8 +66,7 @@ public class MainView extends JFrame {
         lblStreet = new JLabel("Straat:");
         lblNumber = new JLabel("Huisnummer:");
         lblBus = new JLabel("Bus:");
-        
-        dateOfBirth = new DatePicker();
+        lblDob = new JLabel("Geboortedatum:");
         
         btnNewPerson = new JButton("Toevoegen!");
         
