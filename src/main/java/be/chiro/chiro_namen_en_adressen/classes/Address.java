@@ -12,6 +12,9 @@ public class Address {
     private int zipCode;
     private int number;
     private String bus;
+
+    public Address() {
+    }
     
     public Address(String city, String street, int zipCode, int number, String bus) {
         this.city = city;
@@ -60,6 +63,10 @@ public class Address {
     public void setBus(String bus) {
         this.bus = bus;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Address{" + "city=" + city + ", street=" + street + ", zipCode=" + zipCode + ", number=" + number + ", bus=" + bus + '}';
+    }
     
 }

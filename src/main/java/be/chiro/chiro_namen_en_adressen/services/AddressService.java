@@ -8,11 +8,18 @@ import be.chiro.chiro_namen_en_adressen.exceptions.BadAddressException;
  *
  * @author Arno
  */
-public class AddressService {
+public class AddressService implements AddressInterface {
 
     public AddressService() {
     }
     
+    @Override
+    public Address createAddress(String city, String street, int number, int postCode)
+            throws BadAddressException {
+        return createAddress(city,street,number,postCode,null);
+    }
+    
+    @Override
     public Address createAddress(
             String city, 
             String street, 
@@ -48,8 +55,9 @@ public class AddressService {
         }
         if(zipCode < 1000){
             error = true;
-            message += "Geen geldige postcoce\n";
+            message += "Geen geldige postcode\n";
         }
         if(error) throw new BadAddressException(message);  
     }
+    
 }

@@ -1,6 +1,8 @@
 
 package be.chiro.chiro_namen_en_adressen.views;
 
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
