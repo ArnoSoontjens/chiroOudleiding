@@ -4,7 +4,7 @@ package be.chiro.chiro_namen_en_adressen.services;
 import be.chiro.chiro_namen_en_adressen.classes.Person;
 import be.chiro.chiro_namen_en_adressen.exceptions.BadAddressException;
 import be.chiro.chiro_namen_en_adressen.exceptions.IncompletePersonException;
-import sun.awt.image.BadDepthException;
+import java.io.IOException;
 
 /**
  *
@@ -34,8 +34,5 @@ public interface ControllerInterface {
             String bus
     ) throws BadAddressException, IncompletePersonException;
     
-    public boolean writeToFile(Person person);
-    public int getNumberOfEntries();
-    public String getLastEntry();
-    public boolean deleteLastEntryFromFile();
+    public void writeToFile(Person person) throws IOException;
 }

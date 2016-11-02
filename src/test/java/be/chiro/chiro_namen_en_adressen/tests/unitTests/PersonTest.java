@@ -16,7 +16,7 @@ public class PersonTest {
     private final String firstName = "Arno";
     private final String lastName = "Soontjens";
     private final String eMailAddress = "arno.soontjens@test.com";
-    private final Date dob = new Date(1992, 10, 27);
+    private final String dob = "27/10/1992";
     private final Address address = new Address("Noorderwijk", "Ring",2200, 9,"A");
     
     @Test

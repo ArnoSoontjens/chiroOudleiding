@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public interface PersonInterface {
 
-    Person createPerson(String firstName, String lastName, String eMailAdress, Date dob) 
+    Person createPerson(String firstName, String lastName, String eMailAdress, String dob) 
             throws IncompletePersonException;
-    Person createPerson(String firstName, String lastName, String eMailAdress, Date dob, Address address) 
+    Person createPerson(String firstName, String lastName, String eMailAdress, String dob, Address address) 
             throws IncompletePersonException;
 }

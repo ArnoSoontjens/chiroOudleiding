@@ -23,7 +23,7 @@ public class PersonServiceIT {
     
     private static PersonService personService;
     private static String firstName, lastName, eMailAddress;
-    private static Date dob;
+    private static String dob;
     private static Address address;
     
     @BeforeClass
@@ -32,7 +32,7 @@ public class PersonServiceIT {
         firstName = "Arno";
         lastName = "Soontjens";
         eMailAddress = "arno.soontjens@test.be";
-        dob = new Date(1992, 10, 27);
+        dob = "27/10/1922";
         address = new Address();
     }
     

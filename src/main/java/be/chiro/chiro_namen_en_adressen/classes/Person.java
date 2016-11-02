@@ -1,8 +1,6 @@
 
 package be.chiro.chiro_namen_en_adressen.classes;
 
-import java.util.Date;
-
 /**
  *
  * @author Arno
@@ -12,13 +10,13 @@ public class Person {
     private String firstName;
     private String lastName;
     private String eMailAddress;
-    private Date dob;
+    private String dob;
     private Address address;
 
     public Person() {
     }
     
-    public Person(String firstName, String lastName, String eMailAddress, Date dob) {
+    public Person(String firstName, String lastName, String eMailAddress, String dob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMailAddress = eMailAddress;
@@ -26,7 +24,7 @@ public class Person {
         this.address = new Address();  
     }
     
-    public Person(String firstName, String lastName, String eMailAddress, Date dob, Address address) {
+    public Person(String firstName, String lastName, String eMailAddress, String dob, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMailAddress = eMailAddress;
@@ -58,11 +56,11 @@ public class Person {
         this.eMailAddress = eMailAddress;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

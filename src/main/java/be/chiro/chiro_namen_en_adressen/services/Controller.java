@@ -5,7 +5,7 @@ import be.chiro.chiro_namen_en_adressen.classes.Address;
 import be.chiro.chiro_namen_en_adressen.classes.Person;
 import be.chiro.chiro_namen_en_adressen.exceptions.BadAddressException;
 import be.chiro.chiro_namen_en_adressen.exceptions.IncompletePersonException;
-import java.util.Date;
+import java.io.IOException;
 
 /**
  *
@@ -13,6 +13,21 @@ import java.util.Date;
  */
 public class Controller implements ControllerInterface {
 
+    private String fileLocation;
+    private CSVManager writer;
+
+    public Controller() throws IOException {
+        initiateWriter("personen_bestand.csv");
+    }
+    
+    public Controller(String fileLocation) throws IOException {
+        initiateWriter(fileLocation);
+    }
+    
+    private void initiateWriter(String fileLocation) throws IOException {
+        writer = new CSVManager(fileLocation);
+    }
+    
     @Override
     public Person createPersonWithAddress(
             String firstName, 
@@ -43,58 +58,27 @@ public class Controller implements ControllerInterface {
         AddressService as = new AddressService();
         
         Address address = as.createAddress(city, street, number, zipCode, bus);
-        return ps.createPerson(firstName, lastName, eMailaddress, convertStringToDate(dob), address);
+        return ps.createPerson(firstName, lastName, eMailaddress, dob, address);
     }
     
     @Override
-    public boolean writeToFile(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getNumberOfEntries() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean deleteLastEntryFromFile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getLastEntry() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void writeToFile(Person person) throws IOException{
+        String fullName = person.getLastName() + " " + person.getFirstName();
+        String fullAddress = person.getAddress().getStreet() + " " +
+                person.getAddress().getNumber() + " " +
+                person.getAddress().getBus();
+        String[] data = {
+            fullName, 
+            person.getDob(), 
+            fullAddress, 
+            person.getAddress().getCity(), 
+            person.geteMailAddress()
+        };
+        writer.writeDataToCSVFile(data);
     }
     
-    private Date convertStringToDate(String dob) {
-        String pattern = "";
-        
-        if(dob.contains("-")){
-            pattern = "-";
-        } else if (dob.contains(" ")) {
-            pattern = " ";
-        } else if(dob.contains("/")) {
-            pattern = "/";
-        } else if(dob.contains(":")) {
-            pattern = ":";
-        } else if(dob.contains(";")) {
-            pattern = ";";
-        }
-        
-        String[] parts = dob.split(pattern);
-        int[] convertedDateParts = new int[parts.length];
-        
-        for(int i=0;i<parts.length;i++) {
-            try {
-                convertedDateParts[i] = Integer.valueOf(parts[i].trim());
-            } catch(NumberFormatException ex) {
-                //TODO: write to logger;
-            } catch (Exception ex){
-                //TODO: write to logger;
-            }
-        }
-        
-        return new Date(convertedDateParts[0],convertedDateParts[1],convertedDateParts[2]);
+    public void closeWriter() throws IOException {
+        writer.closeWriter();
     }
     
 }

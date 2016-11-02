@@ -4,7 +4,6 @@ package be.chiro.chiro_namen_en_adressen.services;
 import be.chiro.chiro_namen_en_adressen.classes.Address;
 import be.chiro.chiro_namen_en_adressen.classes.Person;
 import be.chiro.chiro_namen_en_adressen.exceptions.IncompletePersonException;
-import java.util.Date;
 
 /**
  *
@@ -20,7 +19,7 @@ public class PersonService implements PersonInterface {
             String firstName, 
             String lastName, 
             String eMailAdress,
-            Date dob
+            String dob
     ) throws IncompletePersonException {
         return createPerson(firstName, lastName, eMailAdress, dob, new Address());
     } 
@@ -30,7 +29,7 @@ public class PersonService implements PersonInterface {
             String firstName, 
             String lastName, 
             String eMailAdress, 
-            Date dob, 
+            String dob, 
             Address address
     ) throws IncompletePersonException {
         checkPerson(firstName, lastName);
