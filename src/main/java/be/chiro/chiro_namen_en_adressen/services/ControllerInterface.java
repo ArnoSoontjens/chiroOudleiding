@@ -36,5 +36,6 @@ public interface ControllerInterface {
     
     public boolean writeToFile(Person person);
     public int getNumberOfEntries();
+    public String getLastEntry();
     public boolean deleteLastEntryFromFile();
 }
