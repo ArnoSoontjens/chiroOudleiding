@@ -72,13 +72,12 @@ public class Controller implements ControllerInterface {
         String fullAddress = person.getAddress().getStreet() + " " +
                 person.getAddress().getNumber() + " " + 
                 person.getAddress().getBus();
-        String fullCity = String.valueOf(person.getAddress().getZipCode()) + " " + person.getAddress().getCity(); 
         String[] data = {
             person.getFirstName(),
             person.getLastName(),
             person.getDob(), 
-            fullAddress, 
-            fullCity, 
+            String.valueOf(person.getAddress().getZipCode()),
+            person.getAddress().getCity(),
             person.geteMailAddress()
         };
         writer.writeDataToCSVFile(data);

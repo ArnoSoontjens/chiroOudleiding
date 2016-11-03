@@ -34,8 +34,13 @@ public class CSVManager implements CSVManagerInterface {
     }
     
     private void prepareCSVFile() throws IOException {
-        String[] columnNames = {"Naam","Voornaam","Geboortedatum","Adres","Stad/Dorp","E-mail adres"};
-        writeDataToCSVFile(columnNames);
+    	File f = new File(fileLocation);
+    	long length  = f.length();
+    	
+    	if (length < 1) {
+    		String[] columnNames = {"Naam","Voornaam","Geboortedatum","Postcode","Adres","Stad/Dorp","E-mail adres"};
+    		writeDataToCSVFile(columnNames);
+    	} 
     }
 
     @Override
