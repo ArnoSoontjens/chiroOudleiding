@@ -7,7 +7,6 @@ import be.chiro.chiro_namen_en_adressen.exceptions.IncompletePersonException;
 import be.chiro.chiro_namen_en_adressen.services.Controller;
 import java.io.IOException;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
@@ -41,6 +40,8 @@ public class ControllerIT {
     
     @AfterClass
     public static void cleanUp() throws IOException {
+        boolean succes = controller.deleteFile();
+        assertTrue(succes);
         controller.closeWriter();
     }
     
@@ -77,9 +78,6 @@ public class ControllerIT {
     @Test
     public void shouldWriteNewPersonToFile() 
             throws BadAddressException, IncompletePersonException, IOException {
-        /*String expectedString = 
-                firstName + "" + lastName + ", "+dob +"," + eMailAddress +
-                " - " + street + " " + number + " " + bus+ ", " + zipCode + ", " + city; */
                 
         for(int i=0;i<10;i++) {
             Person newPerson = controller.createPersonWithAddress(
@@ -89,6 +87,15 @@ public class ControllerIT {
             controller.writeToFile(newPerson);
         }
         
-        //assertEquals(expectedString, controller.getLastEntry());
     }
+    
+    @Test 
+    public void shouldWriteToExistingFile() throws BadAddressException, IncompletePersonException, IOException{
+        Person newPerson = controller.createPersonWithAddress(
+                    "Test", "Testermans", eMailAddress, dob,
+                    city, street, number, zipCode
+        );
+        controller.writeToFile(newPerson);
+    }
+    
 }

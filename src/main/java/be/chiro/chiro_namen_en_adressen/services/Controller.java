@@ -24,10 +24,6 @@ public class Controller implements ControllerInterface {
         initiateWriter(fileLocation);
     }
     
-    private void initiateWriter(String fileLocation) throws IOException {
-        writer = new CSVManager(fileLocation);
-    }
-    
     @Override
     public Person createPersonWithAddress(
             String firstName, 
@@ -77,8 +73,18 @@ public class Controller implements ControllerInterface {
         writer.writeDataToCSVFile(data);
     }
     
+    @Override
     public void closeWriter() throws IOException {
         writer.closeWriter();
+    }
+    
+    @Override
+    public boolean deleteFile() throws IOException {
+        return writer.deleteFile();
+    }
+    
+    private void initiateWriter(String fileLocation) throws IOException {
+        writer = new CSVManager(fileLocation);
     }
     
 }

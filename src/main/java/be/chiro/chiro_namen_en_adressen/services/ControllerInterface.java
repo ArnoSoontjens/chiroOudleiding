@@ -35,4 +35,6 @@ public interface ControllerInterface {
     ) throws BadAddressException, IncompletePersonException;
     
     public void writeToFile(Person person) throws IOException;
+    public void closeWriter() throws IOException;
+    public boolean deleteFile() throws IOException;
 }
