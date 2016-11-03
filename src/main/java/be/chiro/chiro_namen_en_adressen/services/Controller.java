@@ -73,9 +73,10 @@ public class Controller implements ControllerInterface {
                 person.getAddress().getNumber() + " " + 
                 person.getAddress().getBus();
         String[] data = {
-            person.getFirstName(),
             person.getLastName(),
+            person.getFirstName(),
             person.getDob(), 
+            fullAddress,
             String.valueOf(person.getAddress().getZipCode()),
             person.getAddress().getCity(),
             person.geteMailAddress()
@@ -134,7 +135,7 @@ public class Controller implements ControllerInterface {
                     try {
                         writeToFile(personToAdd);
                         clearTextBoxes();
-                        mainView.showMessageBox("Uw gegevens zijn toegevoegd!\nBedankt!\n\nEn nu pinten gaan drinken, komaan!" , "Okidoki!", false);
+                        mainView.showMessageBox("Uw gegevens zijn toegevoegd!\nBedankt!\n\nEn nu gaan dansen, komaan!" , "Okidoki!", false);
                     } catch (IOException ex) {
                         mainView.showMessageBox("Oeps, er ging iets mis." + ex.getMessage(), "Onverwachte fout", true);
                     }

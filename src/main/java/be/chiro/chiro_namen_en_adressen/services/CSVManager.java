@@ -38,7 +38,7 @@ public class CSVManager implements CSVManagerInterface {
     	long length  = f.length();
     	
     	if (length < 1) {
-    		String[] columnNames = {"Naam","Voornaam","Geboortedatum","Postcode","Adres","Stad/Dorp","E-mail adres"};
+    		String[] columnNames = {"Naam","Voornaam","Geboortedatum","Adres","Postcode","Stad/Dorp","E-mail adres"};
     		writeDataToCSVFile(columnNames);
     	} 
     }

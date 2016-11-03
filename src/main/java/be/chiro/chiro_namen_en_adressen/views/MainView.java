@@ -108,7 +108,7 @@ public class MainView extends JPanel {
         lblFirstName = new JLabel("Voornaam:");
         lblLastName = new JLabel("Naam:");
         lblEmail = new JLabel("E-mail adres:");
-        lblCity = new JLabel("Stad:");
+        lblCity = new JLabel("Gemeente:");
         lblZipCode = new JLabel("Postcode:");
         lblStreet = new JLabel("Straat:");
         lblNumber = new JLabel("Huisnummer:");
