@@ -39,11 +39,11 @@ public class PersonService implements PersonInterface {
     private void checkPerson(String firstName,String lastName) throws IncompletePersonException {
         boolean error = false;
         String message="";
-        if(firstName == null) {
+        if(firstName == null || firstName.isEmpty()) {
             error = true;
             message += "Geen geldige voornaam.\n";
         }
-        if(lastName == null) {
+        if(lastName == null || lastName.isEmpty()) {
             error = true;
             message += "Geen geldige achternaam.\n";
         }

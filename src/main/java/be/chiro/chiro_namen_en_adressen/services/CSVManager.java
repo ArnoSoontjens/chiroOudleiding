@@ -16,13 +16,15 @@ public class CSVManager implements CSVManagerInterface {
     
     public CSVManager(String fileLocation) throws IOException {
         this.fileLocation = fileLocation;
-        writer = new CSVWriter(new FileWriter(fileLocation,true),';');
         prepareCSVFile();
     }
 
     @Override
     public void writeDataToCSVFile(String[] data) throws IOException {
+        writer = new CSVWriter(new FileWriter(fileLocation,true),';');
         writer.writeNext(data);
+        writer.flush();
+        writer.close();
     }
     
     @Override
@@ -31,17 +33,9 @@ public class CSVManager implements CSVManagerInterface {
         return fileToDelete.delete(); 
     }
     
-    private void prepareCSVFile() {
+    private void prepareCSVFile() throws IOException {
         String[] columnNames = {"Naam","Geboortedatum","Adres","Stad/Dorp","E-mail adres"};
-        writer.writeNext(columnNames);
-    }
-    
-    public void openWriter() throws IOException {
-        writer = new CSVWriter(new FileWriter(fileLocation,true),';');
-    }
-    
-    public void closeWriter() throws IOException{
-        writer.close();
+        writeDataToCSVFile(columnNames);
     }
 
     @Override

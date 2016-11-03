@@ -42,7 +42,6 @@ public class ControllerIT {
     public static void cleanUp() throws IOException {
         boolean succes = controller.deleteFile();
         assertTrue(succes);
-        controller.closeWriter();
     }
     
     @Test

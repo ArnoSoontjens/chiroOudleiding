@@ -22,14 +22,14 @@ public class Controller implements ControllerInterface {
     
     public Controller() throws IOException {
         this.fileLocation = "personen_bestand.csv";
-        initiateWriter();
+        initializeWriter();
         mainView = new MainView();
         addListener();
     }
     
     public Controller(String fileLocation) throws IOException {
         this.fileLocation = fileLocation;
-        initiateWriter();
+        initializeWriter();
         mainView = new MainView();
         addListener();
     }
@@ -69,7 +69,6 @@ public class Controller implements ControllerInterface {
     
     @Override
     public void writeToFile(Person person) throws IOException{
-        openWriter();
         String fullName = person.getLastName() + " " + person.getFirstName();
         String fullAddress = person.getAddress().getStreet() + " " +
                 person.getAddress().getNumber() + " " +
@@ -82,12 +81,6 @@ public class Controller implements ControllerInterface {
             person.geteMailAddress()
         };
         writer.writeDataToCSVFile(data);
-        closeWriter();
-    }
-    
-    @Override
-    public void closeWriter() throws IOException {
-        writer.closeWriter();
     }
     
     @Override
@@ -95,14 +88,10 @@ public class Controller implements ControllerInterface {
         return writer.deleteFile();
     }
     
-    private void initiateWriter() throws IOException {
+    private void initializeWriter() throws IOException {
         writer = new CSVManager(fileLocation);
     }
-    
-    private void openWriter() throws IOException {
-        writer.openWriter();
-    }
-    
+
     public MainView getMainView() {
         return mainView;
     }
@@ -142,11 +131,14 @@ public class Controller implements ControllerInterface {
                         
                 try {
                     personToAdd = createPersonWithAddress(fn, ln, email, dob, city, street, number, zc, bus);
-                } catch (BadAddressException ex) {
-                    mainView.showMessageBox(ex.getMessage(), "Fout in adres!");
-                } catch (IncompletePersonException ex) {
-                    mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!");
+                } catch (BadAddressException | IncompletePersonException ex) {
+                    if(ex.getClass() == BadAddressException.class) {
+                        mainView.showMessageBox(ex.getMessage(), "Fout in adres!");
+                    } else if(ex.getClass() == IncompletePersonException.class) {
+                        mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!");
+                    }
                 }
+                                    
                 try {
                     System.out.println("Writing: " + personToAdd.toString() + " to file.");
                     writeToFile(personToAdd);
