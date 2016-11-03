@@ -125,8 +125,12 @@ public class MainView extends JPanel {
         
     }
     
-    public void showMessageBox(String message, String title) {
-        JOptionPane.showMessageDialog(null, message, title,JOptionPane.ERROR_MESSAGE);
+    public void showMessageBox(String message, String title, boolean error) {
+        if(error) { 
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        } 
     }
     
 }

@@ -117,36 +117,48 @@ public class Controller implements ControllerInterface {
                     number = Integer.valueOf(mainView.txtNumber.getText());
                 } catch (NumberFormatException ex){
                     mainView.txtNumber.setText("");
-                    mainView.showMessageBox("Gelieve een geldig nummer in te geven", "Geen geldig nummer!");
+                    mainView.showMessageBox("Gelieve een geldig nummer in te geven", "Geen geldig nummer!",true);
                 }
                 
                 try {
                     zc = Integer.valueOf(mainView.txtZipCode.getText());
                 } catch (NumberFormatException ex){
                     mainView.txtZipCode.setText("");
-                    mainView.showMessageBox("Gelieve een geldige postcode in te geven", "Geen geldige postcode!");
+                    mainView.showMessageBox("Gelieve een geldige postcode in te geven", "Geen geldige postcode!",true);
                 }
                 
                 Person personToAdd = null;
                         
                 try {
                     personToAdd = createPersonWithAddress(fn, ln, email, dob, city, street, number, zc, bus);
+                    try {
+                        writeToFile(personToAdd);
+                        clearTextBoxes();
+                        mainView.showMessageBox("Uw gegevens zijn toegevoegd!\nBedankt!\n\nEn nu pinten gaan drinken, komaan!" , "Okidoki!", false);
+                    } catch (IOException ex) {
+                        mainView.showMessageBox("Oeps, er ging iets mis." + ex.getMessage(), "Onverwachte fout", true);
+                    }
                 } catch (BadAddressException | IncompletePersonException ex) {
                     if(ex.getClass() == BadAddressException.class) {
-                        mainView.showMessageBox(ex.getMessage(), "Fout in adres!");
+                        mainView.showMessageBox(ex.getMessage(), "Fout in adres!",true);
                     } else if(ex.getClass() == IncompletePersonException.class) {
-                        mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!");
+                        mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!",true);
                     }
-                }
-                                    
-                try {
-                    System.out.println("Writing: " + personToAdd.toString() + " to file.");
-                    writeToFile(personToAdd);
-                } catch (IOException ex) {
-                    mainView.showMessageBox("Oeps, er ging iets mis." + ex.getMessage(), "Onverwachte fout");
-                }
+                }  
             }
         });
+    }
+     
+    public void clearTextBoxes() {
+        mainView.txtFirstName.setText("");
+        mainView.txtLastName.setText("");
+        mainView.txtDob.setText("");
+        mainView.txtEmail.setText("");
+        mainView.txtCity.setText("");
+        mainView.txtStreet.setText("");
+        mainView.txtNumber.setText("");
+        mainView.txtZipCode.setText("");
+        mainView.txtBus.setText("");   
     }
     
 }
