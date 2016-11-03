@@ -9,8 +9,6 @@ import be.chiro.chiro_namen_en_adressen.views.MainView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,13 +21,15 @@ public class Controller implements ControllerInterface {
     private MainView mainView;
     
     public Controller() throws IOException {
-        initiateWriter("personen_bestand.csv");
+        this.fileLocation = "personen_bestand.csv";
+        initiateWriter();
         mainView = new MainView();
         addListener();
     }
     
     public Controller(String fileLocation) throws IOException {
-        initiateWriter(fileLocation);
+        this.fileLocation = fileLocation;
+        initiateWriter();
         mainView = new MainView();
         addListener();
     }
@@ -69,6 +69,7 @@ public class Controller implements ControllerInterface {
     
     @Override
     public void writeToFile(Person person) throws IOException{
+        openWriter();
         String fullName = person.getLastName() + " " + person.getFirstName();
         String fullAddress = person.getAddress().getStreet() + " " +
                 person.getAddress().getNumber() + " " +
@@ -81,6 +82,7 @@ public class Controller implements ControllerInterface {
             person.geteMailAddress()
         };
         writer.writeDataToCSVFile(data);
+        closeWriter();
     }
     
     @Override
@@ -93,8 +95,12 @@ public class Controller implements ControllerInterface {
         return writer.deleteFile();
     }
     
-    private void initiateWriter(String fileLocation) throws IOException {
+    private void initiateWriter() throws IOException {
         writer = new CSVManager(fileLocation);
+    }
+    
+    private void openWriter() throws IOException {
+        writer.openWriter();
     }
     
     public MainView getMainView() {
@@ -142,6 +148,7 @@ public class Controller implements ControllerInterface {
                     mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!");
                 }
                 try {
+                    System.out.println("Writing: " + personToAdd.toString() + " to file.");
                     writeToFile(personToAdd);
                 } catch (IOException ex) {
                     mainView.showMessageBox("Oeps, er ging iets mis." + ex.getMessage(), "Onverwachte fout");

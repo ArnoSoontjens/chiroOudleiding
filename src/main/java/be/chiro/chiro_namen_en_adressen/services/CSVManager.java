@@ -12,11 +12,11 @@ import java.io.IOException;
 public class CSVManager implements CSVManagerInterface {
     
     private String fileLocation;
-    private final CSVWriter writer;
+    private CSVWriter writer;
     
     public CSVManager(String fileLocation) throws IOException {
         this.fileLocation = fileLocation;
-        writer = new CSVWriter(new FileWriter(fileLocation),';');
+        writer = new CSVWriter(new FileWriter(fileLocation,true),';');
         prepareCSVFile();
     }
 
@@ -34,6 +34,10 @@ public class CSVManager implements CSVManagerInterface {
     private void prepareCSVFile() {
         String[] columnNames = {"Naam","Geboortedatum","Adres","Stad/Dorp","E-mail adres"};
         writer.writeNext(columnNames);
+    }
+    
+    public void openWriter() throws IOException {
+        writer = new CSVWriter(new FileWriter(fileLocation,true),';');
     }
     
     public void closeWriter() throws IOException{
