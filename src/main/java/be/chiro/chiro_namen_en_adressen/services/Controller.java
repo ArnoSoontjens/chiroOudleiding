@@ -69,15 +69,16 @@ public class Controller implements ControllerInterface {
     
     @Override
     public void writeToFile(Person person) throws IOException{
-        String fullName = person.getLastName() + " " + person.getFirstName();
         String fullAddress = person.getAddress().getStreet() + " " +
-                person.getAddress().getNumber() + " " +
+                person.getAddress().getNumber() + " " + 
                 person.getAddress().getBus();
+        String fullCity = String.valueOf(person.getAddress().getZipCode()) + " " + person.getAddress().getCity(); 
         String[] data = {
-            fullName, 
+            person.getFirstName(),
+            person.getLastName(),
             person.getDob(), 
             fullAddress, 
-            person.getAddress().getCity(), 
+            fullCity, 
             person.geteMailAddress()
         };
         writer.writeDataToCSVFile(data);

@@ -12,7 +12,12 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame {
     
-    public static void main(String[] args) throws IOException {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) throws IOException {
         JFrame frame = new Main();
         
         Controller controller = new Controller();
