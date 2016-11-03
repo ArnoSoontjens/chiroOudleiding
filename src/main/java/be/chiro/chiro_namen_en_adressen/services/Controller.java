@@ -5,7 +5,12 @@ import be.chiro.chiro_namen_en_adressen.classes.Address;
 import be.chiro.chiro_namen_en_adressen.classes.Person;
 import be.chiro.chiro_namen_en_adressen.exceptions.BadAddressException;
 import be.chiro.chiro_namen_en_adressen.exceptions.IncompletePersonException;
+import be.chiro.chiro_namen_en_adressen.views.MainView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,13 +20,18 @@ public class Controller implements ControllerInterface {
 
     private String fileLocation;
     private CSVManager writer;
-
+    private MainView mainView;
+    
     public Controller() throws IOException {
         initiateWriter("personen_bestand.csv");
+        mainView = new MainView();
+        addListener();
     }
     
     public Controller(String fileLocation) throws IOException {
         initiateWriter(fileLocation);
+        mainView = new MainView();
+        addListener();
     }
     
     @Override
@@ -85,6 +95,59 @@ public class Controller implements ControllerInterface {
     
     private void initiateWriter(String fileLocation) throws IOException {
         writer = new CSVManager(fileLocation);
+    }
+    
+    public MainView getMainView() {
+        return mainView;
+    }
+    
+     public void addListener() {
+        mainView.btnNewPerson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fn, ln, dob, email, city, street, bus;
+                int number, zc;
+                number = -1;
+                zc = -1;
+                bus ="";
+                
+                fn = mainView.txtFirstName.getText();
+                ln = mainView.txtLastName.getText();
+                dob = mainView.txtDob.getText();
+                email = mainView.txtEmail.getText();
+                
+                city = mainView.txtCity.getText();
+                street = mainView.txtStreet.getText();
+                try {
+                    number = Integer.valueOf(mainView.txtNumber.getText());
+                } catch (NumberFormatException ex){
+                    mainView.txtNumber.setText("");
+                    mainView.showMessageBox("Gelieve een geldig nummer in te geven", "Geen geldig nummer!");
+                }
+                
+                try {
+                    zc = Integer.valueOf(mainView.txtZipCode.getText());
+                } catch (NumberFormatException ex){
+                    mainView.txtZipCode.setText("");
+                    mainView.showMessageBox("Gelieve een geldige postcode in te geven", "Geen geldige postcode!");
+                }
+                
+                Person personToAdd = null;
+                        
+                try {
+                    personToAdd = createPersonWithAddress(fn, ln, email, dob, city, street, number, zc, bus);
+                } catch (BadAddressException ex) {
+                    mainView.showMessageBox(ex.getMessage(), "Fout in adres!");
+                } catch (IncompletePersonException ex) {
+                    mainView.showMessageBox(ex.getMessage(), "Fout in persoonlijke info!");
+                }
+                try {
+                    writeToFile(personToAdd);
+                } catch (IOException ex) {
+                    mainView.showMessageBox("Oeps, er ging iets mis." + ex.getMessage(), "Onverwachte fout");
+                }
+            }
+        });
     }
     
 }

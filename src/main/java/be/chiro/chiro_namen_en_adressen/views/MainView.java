@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,13 +20,13 @@ import javax.swing.JTextField;
  */
 public class MainView extends JPanel {
    
-    private JTextField txtFirstName, txtLastName, txtEmail, txtDob;
-    private JTextField txtCity,txtZipCode, txtStreet, txtNumber, txtBus;
+    public JTextField txtFirstName, txtLastName, txtEmail, txtDob;
+    public JTextField txtCity,txtZipCode, txtStreet, txtNumber, txtBus;
     private JLabel lblUitleg, lblPersonalInfo, lblAddress;
     private JLabel lblFirstName, lblLastName, lblEmail,lblDob;
     private JLabel lblCity, lblZipCode, lblStreet, lblNumber,lblBus;
-    private JLabel dummy;
-    private JButton btnNewPerson;
+    private JLabel dummy1, dummy2;
+    public JButton btnNewPerson;
     private JPanel mainPanel, inputPanel, northPanel;
     private BorderLayout borderLayout;
     private GridLayout gridLayout;
@@ -43,9 +44,8 @@ public class MainView extends JPanel {
         northPanel.add(imageContainer);
         northPanel.add(lblUitleg);
         
-        inputPanel.add(dummy);
         inputPanel.add(lblPersonalInfo);
-        inputPanel.add(dummy);
+        inputPanel.add(dummy1);
         inputPanel.add(lblFirstName);
         inputPanel.add(txtFirstName);
         inputPanel.add(lblLastName);
@@ -55,7 +55,7 @@ public class MainView extends JPanel {
         inputPanel.add(lblDob);
         inputPanel.add(txtDob);
         inputPanel.add(lblAddress);
-        inputPanel.add(dummy);
+        inputPanel.add(dummy2);
         inputPanel.add(lblCity);
         inputPanel.add(txtCity);
         inputPanel.add(lblZipCode);
@@ -96,11 +96,12 @@ public class MainView extends JPanel {
         txtBus = new JTextField(5);
         txtDob = new JTextField(10);
         
-        lblUitleg = new JLabel("Om ons leden en oud-leiding bestand up-to-date te houden \nvragen we jullie om hier snel even je gegevens in te vullen,"
-                + " zodat we jullie voor volgende evenementen ook snel en efficiënt kunnen bereiken!\n"
-                + "Hartelijk bedankt!\n"
-                + "\n"
-                + "Chiro Noorderwijk");
+        lblUitleg = new JLabel(
+                "<html><b>Om ons leden en oud-leiding bestand up-to-date te houden \nvragen we jullie om hier snel even je gegevens in te vullen,<br/>"
+                + " zodat we jullie voor volgende evenementen ook snel en efficiënt kunnen bereiken!<br/>"
+                + "Hartelijk bedankt!<br/>"
+                + "<br/>"
+                + "Chiro Noorderwijk</b></html>");
         lblPersonalInfo = new JLabel("Persoonlijke gegevens");
         lblAddress = new JLabel("Adres gegevens");
         
@@ -113,13 +114,19 @@ public class MainView extends JPanel {
         lblNumber = new JLabel("Huisnummer:");
         lblBus = new JLabel("Bus:");
         lblDob = new JLabel("Geboortedatum:");
-        dummy = new JLabel("");
+        dummy1 = new JLabel(" ");
+        dummy2 = new JLabel(" ");
         
         btnNewPerson = new JButton("Toevoegen!");
         
         mainPanel = new JPanel(borderLayout);
-        northPanel = new JPanel();
+        northPanel = new JPanel(new GridLayout(2,1));
         inputPanel = new JPanel(gridLayout);
         
     }
+    
+    public void showMessageBox(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title,JOptionPane.ERROR_MESSAGE);
+    }
+    
 }
